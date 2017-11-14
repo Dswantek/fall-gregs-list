@@ -2,22 +2,7 @@ function AutosService() {
 
     // WHATS PRIVATE?
     // DUMMY DATA
-    var autos = [{
-        id: 'asdfkljsdafdsaflkj239023u9402u',
-        make: 'Honda',
-        model: 'Accord',
-        year: 1987,
-        color: 'Burgandy',
-        price: 1800,
-        mileage: 323200,
-        condition: 'Like New',
-        engineId: '3', //GOOD QUESTION
-        description: 'Runs great with gas',
-        location: 'Boise',
-        contact: 'testcar@cars.auto',
-        img: '//loremflickr.com/200/200/car',
-        title: 'Your New Car'
-    }]
+    var autos = []
 
     var engines = [
         { id: 1, fuel: 'Gas', cylinders: 4 },
@@ -27,7 +12,7 @@ function AutosService() {
         { id: 5, fuel: 'Gas', cylinders: 10 },
         { id: 6, fuel: 'Diesel', cylinders: 12 },
     ]
-    var id = 0;
+
     function Auto(config){
         this.title = config.title.value
         this.make = config.make.value
@@ -41,7 +26,6 @@ function AutosService() {
         this.condition = config.condition.value
         this.description = config.description.value
         this.img = config.img.value
-        this.id = id++
     }
 
     // PUBLIC?

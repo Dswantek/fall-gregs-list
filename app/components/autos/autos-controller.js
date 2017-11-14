@@ -9,7 +9,7 @@ function AutosController() {
   // Filter / Search
   var autosElem = document.getElementById('autos-list')
   var autosFormElem = document.getElementById('add-auto-form')
-  var showButton = document.getElementById('show-button')
+  var showButton = document.getElementById('auto-show-button')
   function drawAutos() {
     // WHERE ARE ALL THE AUTOS?
     var autos = autosService.getAutos()
@@ -17,7 +17,7 @@ function AutosController() {
     for (var i = 0; i < autos.length; i++) {
       var auto = autos[i];
       template += `
-            <div class="col-md-3">
+            <div class="col-md-3 text-center">
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h3>${auto.title}</h3>

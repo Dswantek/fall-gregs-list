@@ -1,0 +1,24 @@
+{
+  "name": "fall-gregs-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dswantek/fall-gregs-list.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dswantek/fall-gregs-list/issues"
+  },
+  "homepage": "https://github.com/Dswantek/fall-gregs-list#readme",
+  "dependencies": {
+    "bp": "^0.1.1-beta",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.2"
+  }
+}
