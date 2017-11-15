@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/Dswantek/fall-gregs-list#readme",
   "dependencies": {
-    "bp": "^0.1.1-beta",
     "express": "^4.16.2",
     "mongoose": "^4.13.2"
   }
