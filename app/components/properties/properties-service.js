@@ -1,8 +1,9 @@
 function PropertiesService() {
+    var baseUrl = 'http://localhost:3001/api/properties'
 
     var properties = []
 
- 
+
     function Property(config) {
         this.title = config.title.value
         this.year = config.year.value
@@ -17,22 +18,41 @@ function PropertiesService() {
 
     }
 
-    this.getProperties = function getProperties() {
-        return properties
-    }
+    this.getProperties = function getProperties(cb) {
+        if (!cb || typeof cb != 'function') { return console.error('Woah I need a cb to run')}
+            $.get(baseUrl)
+                .then(res => {
+                    properties = res
+                    cb(properties)
+                })
+                .fail(logError)
+        }
 
-    this.getProperty = function getProperty() {
-        for (var i = 0; i < properties.length; i++) {
-            var property = properties[i];
-            if (id == property.id) {
-                return property
+        this.getProperty = function getProperty() {
+            for (var i = 0; i < properties.length; i++) {
+                var property = properties[i];
+                if (id == property.id) {
+                    return property
+                }
             }
         }
-    }
 
-    this.addProperty = function addProperty(form) {
-        var newProperty = new Property(form)
-        properties.unshift(newProperty)
-    }
+        this.addProperty = function addProperty(form, getProperties) {
+            if (!form || !getProperties || typeof getProperties != 'function') { return console.error('unable to add Property ', 'bad parameters', form, getProperties) }
+            var newProperty = new Property(form)
+            $.post(baseUrl, newProperty)
+                .then(getProperties)
+                .fail(logError)
+        }
 
-}
+        this.removeProperty = function removeProperty(index, getProperties){
+            $.ajax({
+                url: baseUrl + '/' + index,
+                method: 'DELETE'
+            })
+                .then(getProperties)
+                .fail(logError)
+        }
+
+
+    }

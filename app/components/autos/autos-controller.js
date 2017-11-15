@@ -10,9 +10,14 @@ function AutosController() {
   var autosElem = document.getElementById('autos-list')
   var autosFormElem = document.getElementById('add-auto-form')
   var showButton = document.getElementById('auto-show-button')
-  function drawAutos() {
+
+  function getAutos(){
+    autosService.getAutos(drawAutos)
+  }
+
+  function drawAutos(autos) {
     // WHERE ARE ALL THE AUTOS?
-    var autos = autosService.getAutos()
+
     var template = ''
     for (var i = 0; i < autos.length; i++) {
       var auto = autos[i];
@@ -40,9 +45,8 @@ function AutosController() {
   this.addAuto = function addAuto(event) {
     event.preventDefault()
     var form = event.target
-    autosService.addAuto(form)
+    autosService.addAuto(form, getAutos)
     autosFormElem.classList.toggle('hidden', true)
-    drawAutos()
   }
   var formstate = false
   
@@ -60,5 +64,9 @@ function AutosController() {
     }
   }
 
-  drawAutos()
+  this.removeAuto = function removeAuto(index){
+    autosService.removeAuto(index, getAutos)
+  }
+
+  getAutos()
 }

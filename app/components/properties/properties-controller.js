@@ -5,9 +5,14 @@ function PropertiesController() {
     var propertiesElem = document.getElementById('properties-list')
     var propertiesFormElem = document.getElementById('add-property-form')
     var propertyShowButton = document.getElementById('property-show-button')
-    function drawProperties() {
+
+    function getProperties(){
+        propertiesService.getProperties(drawProperties)
+    }
+
+    function drawProperties(properties) {
         // WHERE ARE ALL THE AUTOS?
-        var properties = propertiesService.getProperties()
+     
         var template = ''
         for (var i = 0; i < properties.length; i++) {
             var property = properties[i];
@@ -35,9 +40,8 @@ function PropertiesController() {
     this.addProperty = function addProperty(event) {
         event.preventDefault()
         var form = event.target
-        propertiesService.addProperty(form)
+        propertiesService.addProperty(form, getProperties)
         propertiesFormElem.classList.toggle('hidden', true)
-        drawProperties()
     }
 
     var formstate = false
@@ -56,6 +60,10 @@ function PropertiesController() {
         }
     }
 
-    drawProperties()
+        this.removeProperty = function removeProperty(index){
+            propertiesService.removeProperty(index, getProperties)
+        }
+
+    getProperties()
 
 }

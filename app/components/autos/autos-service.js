@@ -1,4 +1,6 @@
 function AutosService() {
+    var baseUrl = 'http://localhost:3001/api/autos'
+
 
     // WHATS PRIVATE?
     // DUMMY DATA
@@ -30,22 +32,48 @@ function AutosService() {
 
     // PUBLIC?
 
-    this.getAutos = function getAutos(){
-        return autos
+    function logError(err){
+        console.error(err)
+    }
+
+    this.getAutos = function getAutos(cb){
+        if (!cb || typeof cb != 'function') { return console.error('WOah I need a cb to run') }
+        // first task is to request the data from the server ASYNC
+        // the data from the server
+        // give the controller what it wants
+        $.get(baseUrl)
+            .then(res => {
+                // second task is to update the local autos array with 
+                autos = res
+                cb(autos)
+            })
+            .fail(logError)
     }
     
-    this.getAuto = function getAuto(id){
+    this.getAuto = function getAuto(id) {
         for (var i = 0; i < autos.length; i++) {
             var auto = autos[i];
-            if(id == auto.id){
+            if (id == auto.id) {
                 return auto
             }
         }
     }
 
-    this.addAuto = function addAuto(form){
+    this.addAuto = function addAuto(form, getAutos) {
+        if (!form || !getAutos || typeof getAutos != 'function') { return console.error('Unable to add Auto', 'bad parameters', form, getAutos) }
         var newAuto = new Auto(form)
-        autos.unshift(newAuto)
+        $.post(baseUrl, newAuto)
+            .then(getAutos)
+            .fail(logError)
+    }
+
+    this.removeAuto = function removeAuto(index, getAutos) {
+        $.ajax({
+            url: baseUrl + '/' + index,
+            method: 'DELETE'
+        })
+            .then(getAutos)
+            .fail(logError)
     }
 
 }
